@@ -1,5 +1,5 @@
-### EC602 mini project 1
-#### Build a library (preferable in python) that downloads images from a twitter feed, convert them to a video and describe the content of the images in the video.
+## EC602 mini project 1
+### Build a library (preferable in python) that downloads images from a twitter feed, convert them to a video and describe the content of the images in the video.
 
 - Code by python
 - Use Twitter API to access the twitter content, use tweepy download images 
