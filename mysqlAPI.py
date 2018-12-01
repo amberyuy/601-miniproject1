@@ -9,7 +9,7 @@ try:
         host="localhost",
         port=3306,
         user="root",
-        password="Amber1129...",
+        password="",
         db="tw"
     )
 except Exception:
