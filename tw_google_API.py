@@ -97,8 +97,8 @@ def store_mysqldb(tw_id, img_num, label_dic):
         if len(value) < 5:
             tmp_list = ['None'] * (5 - len(value))
             value.extend(tmp_list)
-            cursor.execute(sql_1, (tw_id, img_num, key, value[0], value[1], value[2], value[3], value[4]))
-            twdb.commit()
+        cursor.execute(sql_1, (tw_id, img_num, key, value[0], value[1], value[2], value[3], value[4]))
+        twdb.commit()
     print("Finishing storing mysql database")
 
 
@@ -113,10 +113,10 @@ def store_mongodb(tw_id, img_num, label_dic):
         if len(value) < 5:
             tmp_list = ['None'] * (5 - len(value))
             value.extend(tmp_list)
-            nosql = {"twID": tw_id, "num": img_num, "filename": key, "label1": value[0], "label2": value[1], "label3": value[2], "label4": value[3], "label5": value[4]}
-            tw_info.insert_one(nosql)
+        nosql = {"twID": tw_id, "num": img_num, "filename": key, "label1": value[0], "label2": value[1], "label3": value[2], "label4": value[3], "label5": value[4]}
+        tw_info.insert_one(nosql)
 
-    print("Finishing storing mysql database")
+    print("Finishing storing MongoDB")
 
 
 if __name__ == '__main__':
