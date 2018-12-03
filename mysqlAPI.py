@@ -1,5 +1,4 @@
 import pymysql
-from collections import Counter
 
 
 try:
@@ -28,6 +27,7 @@ def search_label(search_key):
             twid = target[1]
             img_num = target[2]
             filename = target[3]
+            print("=======================================================")
             print("The twitter ID that has this label is: ", twid)
             print("The number of images about this ID is: ", img_num)
             print("The filename that has this label is : ", filename)
@@ -56,6 +56,7 @@ def search_twiiter_ID(search_twid):
             label3 = target[6]
             label4 = target[7]
             label5 = target[8]
+            print("=======================================================")
             print("file '{0}' has labels: {1}, {2}, {3}, {4}, {5}".format(filename, label1, label2, label3, label4, label5))
     except Exception:
         print("Have some error...")
@@ -77,6 +78,7 @@ def search_filename(search_file):
             label3 = target[6]
             label4 = target[7]
             label5 = target[8]
+            print("=======================================================")
             print("Twitter ID is: ", twid)
             print("file '{0}' has labels: {1}, {2}, {3}, {4}, {5}".format(filename, label1, label2, label3, label4, label5))
     except Exception:

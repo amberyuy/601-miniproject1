@@ -3,12 +3,15 @@
 import tweepy
 from tweepy import OAuthHandler
 import wget
+import io
 import os
 import pymysql
-import io
+import pymongo
 from google.cloud import vision
 from google.cloud.vision import types
 from PIL import Image, ImageDraw, ImageFont
+
+
 consumer_key = ''
 consumer_secret = ''
 access_token = ''
@@ -65,9 +68,7 @@ def get_draw_label(tw_id):
             img_text = []
             for label in labels:
                 img_text.append(label.description)
-            print(img_text)
             label_dic[file_name] = list(img_text[:5])
-            print(file_name, label_dic[file_name])
             img_text_draw = str(img_text[:5])
             imdraw = Image.open(file_name)
             draw = ImageDraw.Draw(imdraw)
@@ -93,13 +94,28 @@ def store_mysqldb(tw_id, img_num, label_dic):
     cursor = twdb.cursor()
     sql_1 = "INSERT INTO tw_info(twID, num, filename, label1, label2, label3, label4, label5) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
     for key, value in label_dic.items():
-        print(key)
-        print(value)
         if len(value) < 5:
             tmp_list = ['None'] * (5 - len(value))
             value.extend(tmp_list)
             cursor.execute(sql_1, (tw_id, img_num, key, value[0], value[1], value[2], value[3], value[4]))
             twdb.commit()
+    print("Finishing storing mysql database")
+
+
+def store_mongodb(tw_id, img_num, label_dic):
+    client = pymongo.MongoClient("")
+
+    twdb = client.tw  # database
+    tw_info = twdb.twinfo  # collection
+    for key, value in label_dic.items():
+        # print(key)
+        # print(value)
+        if len(value) < 5:
+            tmp_list = ['None'] * (5 - len(value))
+            value.extend(tmp_list)
+            nosql = {"twID": tw_id, "num": img_num, "filename": key, "label1": value[0], "label2": value[1], "label3": value[2], "label4": value[3], "label5": value[4]}
+            tw_info.insert_one(nosql)
+
     print("Finishing storing mysql database")
 
 
@@ -110,5 +126,5 @@ if __name__ == '__main__':
     tw_num = int(input())
     img_num = tw_download(tw_id, tw_num)
     label_dic = get_draw_label(tw_id)
-    store_mysqldb(tw_id, img_num, label_dic)
-
+    # store_mysqldb(tw_id, img_num, label_dic)
+    store_mongodb(tw_id, img_num, label_dic)

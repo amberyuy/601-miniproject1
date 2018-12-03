@@ -1,4 +1,4 @@
-import mysqlAPI
+import mongodbAPI
 
 
 while True:
@@ -12,19 +12,19 @@ while True:
     if s == 1:
         print("Please input the label that you want to search")
         search_key = str(input())
-        mysqlAPI.search_label(search_key)
+        mongodbAPI.search_label(search_key)
         print("\n")
 
     elif s == 2:
         print("Please input the twitter ID that you want to search ")
         search_twid = str(input())
-        mysqlAPI.search_twiiter_ID(search_twid)
+        mongodbAPI.search_twiiter_ID(search_twid)
         print("\n")
 
     elif s == 3:
         print("Please input the file name that you want to search ")
         search_file = str(input())
-        mysqlAPI.search_filename(search_file)
+        mongodbAPI.search_filename(search_file)
         print("\n")
     else:
         break
