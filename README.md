@@ -7,7 +7,7 @@
 - Use Google Vision API to describe the content, use pil to label images
 
 ## EC601 mini project 3
-#### Create MySQL Database
+### Create MySQL Database
     CREATE TABLE tw_info(
     infoid INT NOT NULL AUTO_INCREMENT,
     twID VARCHAR(40),
@@ -20,16 +20,16 @@
     label5 VARCHAR(40),
     primary key (infoid));
     
-#### Create MongoDB
+### Create MongoDB
 - The MongoDB database will not show its content until you insert some content. So you can open the `tw_google_API.py` to see how to insert content into MongoDB
 
-#### To get twitter images and labels and `store data into MySQL Database and MongoDB`
+### To get twitter images and labels and `store data into MySQL Database and MongoDB`
         python tw_google_API.py
 
-#### Search the databse directly
+### Search the databse directly
         python test_mysql.py
         python test_mongodb.py
         
-#### See how to search the databse
+### See how to search the databse
 - you can see the code in `mysqlAPI.py` and `mongodbAPI.py`, you can search the twitter ID, label and filename.
 
