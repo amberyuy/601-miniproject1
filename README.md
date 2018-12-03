@@ -26,3 +26,10 @@
 #### To get twitter images and labels and `store data into MySQL Database and MongoDB`
         python tw_google_API.py
 
+#### Search the databse directly
+        python test_mysql.py
+        python test_mongodb.py
+        
+#### See how to search the databse
+- you can see the code in `mysqlAPI.py` and `mongodbAPI.py`, you can search the twitter ID, label and filename.
+
