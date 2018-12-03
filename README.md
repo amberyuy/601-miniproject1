@@ -21,17 +21,8 @@
     primary key (infoid));
     
 #### Create MongoDB
-- The MongoDB database will not show its content until you insert some content. So the code below is to show the collection.
+- The MongoDB database will not show its content until you insert some content. So you can open the `tw_google_API.py` to see how to insert content into MongoDB
 
-    client = pymongo.MongoClient("")
-    twdb = client.tw
-    twitterID = "test"
-    img_num = 10
-    filename = "test.jpg"
-    label1 = "1"
-    label2 = "2"
-    label3 = "3"
-    label4 = "4"
-    label5 = "5"
-    comm = {"twID": tw_id, "num": img_num, "filename": key, "label1": label1, "label2": label2, "label3": label3, "label4":       label4, "label5": label5]}
-    tw_info.insert_one(comm)
+#### To get twitter images and labels and `store data into MySQL Database and MongoDB`
+        python tw_google_API.py
+
