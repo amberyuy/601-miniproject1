@@ -7,6 +7,7 @@
 - Use Google Vision API to describe the content, use pil to label images
 
 ## EC601 mini project 3
+- I integrated the previous files in mini project1, and now I can download images from twitter and get labels in one file called `tw_google_API.py`. And I added store function in it to implement store data in MySQL and Mongo Database.
 ### Create MySQL Database
     CREATE TABLE tw_info(
     infoid INT NOT NULL AUTO_INCREMENT,
