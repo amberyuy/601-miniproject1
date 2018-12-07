@@ -12,10 +12,10 @@ from google.cloud.vision import types
 from PIL import Image, ImageDraw, ImageFont
 
 
-consumer_key = ''
-consumer_secret = ''
-access_token = ''
-access_secret = ''
+consumer_key = 'yoursecretkey'
+consumer_secret = 'yoursecretkey'
+access_token = 'yoursecretkey'
+access_secret = 'yoursecretkey'
 
 
 def tw_download(tw_id, tw_num):
@@ -23,6 +23,7 @@ def tw_download(tw_id, tw_num):
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_secret)
     api = tweepy.API(auth)
+    # download images in a new folder
     results = api.user_timeline(id=tw_id, count=tw_num)  # id = @BU_Tweets,@taylorswift13
     path = '/Users/wangyuying/Desktop/twitter_image/pics/' + tw_id
     os.mkdir(path)
@@ -65,11 +66,13 @@ def get_draw_label(tw_id):
             image = types.Image(content=content)
             response = client.label_detection(image=image)
             labels = response.label_annotations
+            # only use the first five labels
             img_text = []
             for label in labels:
                 img_text.append(label.description)
             label_dic[file_name] = list(img_text[:5])
             img_text_draw = str(img_text[:5])
+            # draw label on images
             imdraw = Image.open(file_name)
             draw = ImageDraw.Draw(imdraw)
             font = ImageFont.truetype('/Users/wangyuying/Desktop/twitter_image/cmss10.ttf', 20)
@@ -80,12 +83,13 @@ def get_draw_label(tw_id):
 
 
 def store_mysqldb(tw_id, img_num, label_dic):
+    # store twitter ID, number of images, image name and image lables in MySQL database
     try:
         twdb = pymysql.connect(
             host="localhost",
             port=3306,
             user="root",
-            password="",
+            password="secretkey",
             db="tw"
         )
     except Exception:
@@ -94,6 +98,7 @@ def store_mysqldb(tw_id, img_num, label_dic):
     cursor = twdb.cursor()
     sql_1 = "INSERT INTO tw_info(twID, num, filename, label1, label2, label3, label4, label5) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
     for key, value in label_dic.items():
+        # use 'None' complete five labels
         if len(value) < 5:
             tmp_list = ['None'] * (5 - len(value))
             value.extend(tmp_list)
@@ -103,13 +108,16 @@ def store_mysqldb(tw_id, img_num, label_dic):
 
 
 def store_mongodb(tw_id, img_num, label_dic):
-    client = pymongo.MongoClient("")
+    # store twitter ID, number of images, image name and image lables in MongoDB
+    # I use the cloud version of MongoDB called 'MongoDB Atlas'
+    client = pymongo.MongoClient("clouddatabaselink")
 
     twdb = client.tw  # database
     tw_info = twdb.twinfo  # collection
     for key, value in label_dic.items():
         # print(key)
         # print(value)
+        # use 'None' complete five labels
         if len(value) < 5:
             tmp_list = ['None'] * (5 - len(value))
             value.extend(tmp_list)
